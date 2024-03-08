@@ -1,0 +1,13 @@
+This repository is for the GPU honors assignment for "CUDA at Scale for the Enterprise" from coursera
+Here is the project description:
+The code developed is for playing 4x4 tic-tac-toe. 
+It is designed to use GPU0 and GPU1. If a second GPU is not present, the code will still run. Everything designed to be moved to and from  the 2nd GPU will just be copied to the 1st GPU.
+The code uses the concept of representing the board as a 1D array of -1, 0 & 1.  This representation is used for drawing the board to the terminal.
+It also uses the concept of a weighted version of the board array for the specific GPU have value of +10 if it is the current GPU and -100 if it is the other GPU. Open spaces have value = 1.
+There are 10 possible solutions for 4 in a row. 4 Hz array, 4 Vt array and 2 diagonal array
+An array representing the top row Solution Vector would be {1,1,1,1, 0,0,0,0 0,0,0,0 0,0,0,0}
+If you take the "dot" product of a solution vector with the weighted board array, you get information that can be used to determine the next guess as well as if there is now 4 in a row.
+The kernel is only used to do the array multiplies. Same kernel for called for GPU#1 and GPU#2
+The only difference in GPU1 vs GPU2 is the 1st guess.
+It is nice to think GPU1 competing against GPU2 but this is difficult because you are not supposed to place conditional switching in the kernel code. All of the conditional analysis must be done on the host.
+the *.cu code is attached
